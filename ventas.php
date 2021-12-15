@@ -114,25 +114,25 @@
                   
         $result = mysqli_query($conn, $query);
         if(!$result){
-            echo 'Error pago<br>';
+            echo 'Error credito <br>';
         } else{
-            echo 'Exito PAGO <br>' ;
+            echo 'Exito Credito <br>' ;
         }
 
-        $folio_pago = "SELECT MAX(id_pago) FROM pagos";
-        $resultado1 = mysqli_query($conn, $folio_pago);
-        $id_pago;
+        $folio_credito = "SELECT MAX(id_credito) FROM creditos";
+        $resultado1 = mysqli_query($conn, $folio_credito);
+        $id_credito;
 
         while($row = mysqli_fetch_assoc($resultado1)) {
-            $id_pago = $row['MAX(id_pago)'];
+            $id_credito = $row['MAX(id_credito)'];
         }
-        $updatePago = "UPDATE ventas SET id_pago = '$id_pago' WHERE folio='$id'";
-        $resultado = mysqli_query($conn, $updatePago);
+        $updateCredito = "UPDATE ventas SET id_credito = '$id_credito' WHERE folio='$id'";
+        $resultado = mysqli_query($conn, $updateCredito);
 
         if(!$resultado){
-            echo 'Error pago<br>';
+            echo 'Error ventas folio credito<br>';
         } else{
-            echo 'Exito PAGO <br>' ;
+            echo 'Exito ventas folio credito <br>' ;
         }
     }
 
