@@ -1,0 +1,450 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f1f1;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.cabecera {
+  background-color: #aad576;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cabecera img {
+  width: 300px;
+}
+
+.logo {
+  padding-top: 10px;
+  padding-bottom: 3px;
+  margin: auto;
+}
+
+.logo a {
+  text-decoration: none;
+  color: white;
+}
+
+.vinculos {
+  background: #fbe69e;
+  width: 100%;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.vinculos a {
+  color: #273515;
+  font-size: 30px;
+  margin-left: 7px;
+}
+
+.vinculos a:hover {
+  text-decoration: underline;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.formulario {
+  width: 300px;
+  height: auto;
+  background-color: #aad576;
+  box-shadow: 0 0 20px #333;
+  text-align: center;
+  font-size: 15px;
+}
+
+.formulario form {
+  width: 300px;
+  background-color: white;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  width: 85%;
+  height: 40px;
+  margin: 4px 0;
+  border-radius: 8px;
+  border: 1px solid #d9dad9;
+}
+
+form select {
+  width: 85%;
+  height: 40px;
+  margin: 4px 0;
+  border-radius: 8px;
+  border: 1px solid #d9dad9;
+}
+
+input[type="submit"] {
+  margin-bottom: 23px;
+  background: #aad576;
+  width: auto;
+  padding: 0 20px;
+}
+
+.pago {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 15px;
+  margin: 5px;
+  padding: 0;
+}
+
+.tabla {
+  width: 200 px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-auto-rows: 60px; /* Altura de las celdas */
+  box-shadow: 0 0 20px #333;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.cabeceras {
+  width: 200 px;
+  height: 60px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 60px; /* Altura de las celdas */
+  background-color: white;
+}
+
+.precio {
+  width: 500px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: auto;
+  height: 200px;
+  margin-bottom: 20px;
+  display: none;
+  grid-auto-rows: 30px;
+}
+
+.caja {
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+
+  margin: auto;
+  height: auto;
+  margin-bottom: 20px;
+  grid-auto-rows: 30px;
+  overflow: auto;
+}
+
+.clientes {
+  width: 100%;
+  grid-template-columns: repeat(6, 1fr);
+  margin: auto;
+  height: 300px;
+  margin-bottom: 20px;
+  grid-auto-rows: 50px;
+  overflow: auto;
+  background: white;
+}
+
+.creditos {
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  margin: auto;
+  height: 300px;
+  margin-bottom: 20px;
+  grid-auto-rows: 60px;
+  overflow: auto;
+}
+
+.pagos {
+  width: 100%;
+  grid-template-columns: repeat(6, 1fr);
+  margin: auto;
+  height: 300px;
+  margin-bottom: 20px;
+  grid-auto-rows: 60px;
+  overflow: auto;
+}
+
+.precio .table_title {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.table_title {
+  grid-column-start: 1;
+  grid-column-end: 10;
+  background-color: #aad576;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.table_header,
+.table_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  border-top: 1px solid #dfdfdf;
+  border-left: 1px solid #dfdfdf;
+  padding: 5px;
+}
+
+.table_header {
+  font-weight: bold;
+}
+
+.ventas-cabecera {
+  display: flex;
+  flex-direction: row; /* Ordena las cajas por filas*/
+  flex-wrap: wrap; /* Cuando no quepan las filas las manda hacia abajo*/
+  justify-content: space-around; /* Centra las filas*/
+  align-items: flex-start;
+  width: 98%;
+  /* background-color: crimson; */
+  margin: auto;
+}
+
+.ejemplo {
+  width: 100%;
+  height: 400px;
+  /*background: cyan;*/
+}
+
+.credito_formulario {
+  display: none;
+}
+
+.liquida_formulario {
+  display: none;
+  width: 100%;
+}
+
+.tabla_caja {
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.tabla_creditos {
+  width: 750px;
+}
+
+.tabla_ventas {
+  width: 750px;
+}
+
+.titulo {
+  background-color: #aad576;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  width: 100%;
+}
+
+.caja_menu1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row; /* Ordena las cajas por filas*/
+  flex-wrap: wrap; /* Cuando no quepan las filas las manda hacia abajo*/
+  justify-content: space-around; /* Centra las filas*/
+  align-items: flex-start;
+}
+
+/*
+.tablas_caja {
+} */
+
+.formulario_caja {
+  width: 200px;
+  height: 300px;
+}
+
+.estatusDebe {
+  background-color: #f79d65;
+}
+
+.estatusPagado {
+  background-color: #aad576;
+}
+
+.filtro_ventas {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.ventas-tabla {
+  display: flex;
+  flex-direction: column; /* Ordena las cajas por columnas*/
+  flex-wrap: nowrap; /* Cuando no quepan las filas las manda hacia abajo*/
+  justify-content: center; /* Centra las filas*/
+  align-items: center;
+  width: 70%;
+}
+
+.filtro-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filtro-form label {
+  font-size: 15px;
+}
+
+.filtro-form * {
+  margin: 2px 2px;
+}
+
+.filter {
+  width: 80px;
+  height: 25px;
+}
+
+.filtro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  text-decoration: none;
+  color: #aad576;
+  font-size: 30px;
+  background-color: white;
+  border: 2px solid white;
+}
+
+button:hover {
+  color: #9bc26b;
+  cursor: pointer;
+}
+
+.filtro_btn {
+  background-color: #aad576;
+  font-size: 15px;
+  color: white;
+  border: 1px solid #aad576;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.filtro_btn:hover {
+  background: #9bc26b;
+  color: white;
+  cursor: pointer;
+}
+
+.details {
+  height: auto;
+}
+
+.menu_clientes {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.tabla_clientes {
+  width: 600px;
+  background-color: #273515;
+}
+
+.detalles {
+  grid-column-start: 1;
+  grid-column-end: 10;
+  height: auto;
+}
+
+.detalles_venta {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  display: flex;
+  justify-content: center;
+  transform: scale(0);
+  transition: transform 0.3s;
+}
+
+.show {
+  transform: scale(1);
+}
+
+.detalles_contenido {
+  background-color: white;
+  width: 60%;
+  height: 400px;
+  box-shadow: 0 0 20px #333;
+}
+
+.cerrar {
+  position: fixed;
+  left: 78.5%;
+  top: -1.5%;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  border-radius: 20px;
+  background-color: #aad576;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.equis {
+  background: none;
+  color: white;
+  font-size: 30px;
+  border: 0;
+}
+
+.equis:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.cerrar:hover {
+  background: #9bc26b;
+  cursor: pointer;
+}
+
+.tabla_modal {
+  width: 80%;
+  height: 200px;
+  background: #aad576;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  overflow-y: scroll;
+}
