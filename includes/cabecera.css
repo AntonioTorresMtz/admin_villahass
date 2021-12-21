@@ -118,9 +118,13 @@ input[type="radio"] {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-auto-rows: 60px; /* Altura de las celdas */
-  box-shadow: 0 0 20px #333;
   overflow-y: scroll;
   overflow-x: scroll;
+  background-color: white;
+}
+
+.compras {
+  background: #f79d65;
 }
 
 .cabeceras {
@@ -129,6 +133,24 @@ input[type="radio"] {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: 60px; /* Altura de las celdas */
+  background-color: white;
+}
+
+.cabeceras-8 {
+  width: 100%;
+  height: 60px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-rows: 60px; /* Altura de las celdas */
+  background: #fff;
+}
+
+.cabeceras-3 {
+  width: 200 px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 40px; /* Altura de las celdas */
   background-color: white;
 }
 
@@ -154,7 +176,7 @@ input[type="radio"] {
 }
 
 .clientes {
-  width: 100%;
+  width: 103%;
   grid-template-columns: repeat(6, 1fr);
   margin: auto;
   height: 300px;
@@ -162,20 +184,40 @@ input[type="radio"] {
   grid-auto-rows: 50px;
   overflow: auto;
   background: white;
+  box-shadow: none;
 }
 
+.inventario {
+  width: 103%;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  height: 200px;
+  margin-bottom: 20px;
+  grid-auto-rows: 25px;
+  overflow: auto;
+  background: white;
+  box-shadow: none;
+}
+
+.creditos__tabla {
+  width: 65%;
+  background: white;
+}
+
+.ventas__menu {
+  width: 45%;
+}
 .creditos {
-  width: 100%;
+  width: 101.8%;
   grid-template-columns: repeat(8, 1fr);
   margin: auto;
   height: 300px;
   margin-bottom: 20px;
   grid-auto-rows: 60px;
-  overflow: auto;
 }
 
 .pagos {
-  width: 100%;
+  width: 103.1%;
   grid-template-columns: repeat(6, 1fr);
   margin: auto;
   height: 300px;
@@ -212,6 +254,7 @@ input[type="radio"] {
 
 .table_header {
   font-weight: bold;
+  border-bottom: 1px solid #dfdfdf;
 }
 
 .ventas-cabecera {
@@ -242,16 +285,24 @@ input[type="radio"] {
 
 .tabla_caja {
   width: 300px;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .tabla_creditos {
-  width: 750px;
+  width: 100%;
+}
+
+.tabla_pagos {
+  width: 100%;
 }
 
 .tabla_ventas {
   width: 750px;
+}
+
+.tabla_compra {
+  width: 99%;
+  box-shadow: 0 0 20px #333;
+  min-width: 500px;
 }
 
 .titulo {
@@ -378,6 +429,7 @@ button:hover {
 .tabla_clientes {
   width: 600px;
   background-color: #273515;
+  box-shadow: 0 0 20px #333;
 }
 
 .detalles {
@@ -447,4 +499,23 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   overflow-y: scroll;
+}
+
+.caja_menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.tabla_inventario {
+  width: 500px;
+}
+
+.menu_caja1 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }

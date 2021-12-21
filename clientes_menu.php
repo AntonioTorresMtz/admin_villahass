@@ -24,12 +24,12 @@ include("db.php");
      <div class="tabla_clientes">
           <div class="titulo">Clientes</div>
           <div class="cabeceras">
-          <div class="table_header">Razon Social</div>
-                    <div class="table_header">Nombre</div>
-                    <div class="table_header">Apellido Paterno</div>
-                    <div class="table_header">Apellido Materno</div>
-                    <div class="table_header">Telefono</div>
-                    <div class="table_header">Direccion</div> 
+               <div class="table_header">Razon Social</div>
+               <div class="table_header">Nombre</div>
+               <div class="table_header">Apellido Paterno</div>
+               <div class="table_header">Apellido Materno</div>
+               <div class="table_header">Telefono</div>
+               <div class="table_header">Direccion</div> 
           </div>
           <div class="tabla clientes">
           <?php 

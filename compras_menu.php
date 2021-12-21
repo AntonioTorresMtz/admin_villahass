@@ -1,16 +1,12 @@
 <?php include('includes/header.php');
 include("db.php");
 include 'includes/metodos.php';
-$ventas = "SELECT a.fecha, a.folio, b.razon_social,  a.total, a.num_factura, 
-a.plazo, a.id_pago,a.id_credito from ventas a 
+$ventas = "SELECT a.fecha, a.id_compra, b.razon_social,  a.total, a.factura, a.id_pago, a.id_credito
+from compras a 
 inner join cliente b on a.id_cliente = b.id_cliente ";
 //ORDER BY fecha DESC
 
-/* 
-select a.fecha, a.folio, b.razon_social, a.calibre, a.kilogramos, a.total, a.num_factura, a.plazo, a.id_pago,
-a.id_credito from ventas a 
-inner join cliente b on a.id_cliente = b.id_cliente ORDER BY fecha DESC;
-*/
+
 $precio = "SELECT * FROM precio";
 $clientes = "SELECT * FROM cliente";
 ?>
@@ -46,13 +42,13 @@ while($row = mysqli_fetch_assoc($resultado)) {?>
 <div class="ventas-cabecera">
         <div class="formulario">
        
-                <h2>Venta Nueva</h2>
+                <h2>Compra Nueva</h2>
        
 
-                <form action="ventas.php" method="post">
+                <form action="compras.php" method="post">
 
-        <label for="cliente"> Cliente</label>
-        <select name="cliente" id="cliente">
+        <label for="cliente"> Acredor</label>
+        <select name="acredor" id="cliente">
         <?php $resultado = mysqli_query($conn, $clientes);
 
         while($row = mysqli_fetch_assoc($resultado)) {?>
@@ -98,9 +94,7 @@ while($row = mysqli_fetch_assoc($resultado)) {?>
                 <div class="btn-der">
 			<button id="adicional" name="adicional" type="button" class="btn btn-warning"> <i class="far fa-plus-square"></i> </button>
 		</div>
-            <input type="text" placeholder="Factura" name="factura" required>
-            <label for="plazo">Plazo</label>
-            <input type="date" placeholder="Plazo" name="plazo" id="plazo">
+            <input type="text" placeholder="Factura" name="factura">
             <div class="pago">
                     
                     <p>Tipo de pago:</p>
@@ -202,7 +196,7 @@ while($row = mysqli_fetch_assoc($resultado)) {?>
                         <div class="filtro">
                                 <label for="orden">Orden</label>
                                 <select name="orden" id="orden" class="filter">
-                                        <option value="ORDER BY fecha DESC">Mas reciente</option>
+                                        <option value="ORDER BY id_compra DESC">Mas reciente</option>
                                         <option value="ORDER BY fecha ASC">Mas antiguo</option>
                                  </select>
                         </div>                        
@@ -282,7 +276,7 @@ while($row = mysqli_fetch_assoc($resultado)) {?>
                         $where=$where;
                        // echo 'Vacio';
                 } else{
-                        $where=$where . " and a.folio =" . $folio;       
+                        $where=$where . " and a.id_compra =" . $folio;       
                 }
 
                 if(empty($_POST["calibre"])){
@@ -307,7 +301,7 @@ while($row = mysqli_fetch_assoc($resultado)) {?>
                         $where=$where;
                         //echo 'Vacio * 2 ';
                 } else{
-                        $where=$where . " and a.num_factura LIKE " ."'%". $factura ."%'";       
+                        $where=$where . " and a.factura LIKE " ."'%". $factura ."%'";       
                 }
 
                 if(empty($_POST["orden"])){
@@ -326,88 +320,78 @@ while($row = mysqli_fetch_assoc($resultado)) {?>
         <?php
         $descripcion="";
         ?>
-<div class="ejemplo">
-        <div class="tabla">
-                <div class="table_title details">Registro de ventas</div>
-                <div class="table_header">Detalles</div>
-                <div class="table_header">Fecha</div>
-                <div class="table_header">Cliente</div>
-                <div class="table_header">Folio</div>
-                <div class="table_header">Total</div>
-        
-                <div class="table_header">Factura</div>
-                <div class="table_header">Plazo</div>
-                <div class="table_header">Pago</div>
-                <div class="table_header">Credito</div>
-        
+
+        <div class="tabla_compra">
+                <div class="titulo">Compras</div>
+                <div class="cabeceras-8">
+                        <div class="table_header">Detalles</div>
+                        <div class="table_header">Fecha</div>
+                        <div class="table_header">Acredor</div>
+                        <div class="table_header">Folio</div>
+                        <div class="table_header">Total</div>
+                        <div class="table_header">Factura</div>
+                        <div class="table_header">Pago</div>
+                        <div class="table_header">Credito</div>
+                </div>
+                <div class="tabla creditos">
                 <?php $resultado = mysqli_query($conn, $ventas);
 
-                while($row = mysqli_fetch_assoc($resultado)) {?>
-                <div onclick="muestraModal()" class="table_item"> <i  class="fas fa-chevron-circle-down"></i> </div>
+while($row = mysqli_fetch_assoc($resultado)) {?>
+<div onclick="muestraModal()" class="table_item"> <i  class="fas fa-chevron-circle-down"></i> </div>
+        <?php
+        $dinero = $row['total'];
+        $final = formatoDinero($dinero);
+        $folio = $row['id_compra'];
+        ?>
+        <div class="table_item"> <?php echo $row["fecha"] ?> </div>
+        <div class="table_item"> <?php echo $row["razon_social"] ?> </div>
+        <div class="table_item"> <?php echo $row["id_compra"] ?> </div>        
+        <div class="table_item"> <?php echo "$".$final ?> </div>        
+        <div class="table_item"> <?php echo $row["factura"] ?> </div>
+        <div class="table_item"> <?php echo $row["id_pago"] ?> </div>
+        <div class="table_item"> <?php echo $row["id_credito"] ?> </div>
+        <div class="detalles_venta" id="modal">
+        
+        <div class="detalles_contenido">
+                <div onclick="cerrarModal()" class="cerrar">
+                        <button class="equis"><i class="fas fa-times"></i></button> 
+                </div> 
+
+                <div>
+                        <h2>Detalles ventas</h2>
+                 </div>
+                <div class="tabla_modal">
+                        <div>Fecha</div>
+                        <div>Cliente</div>
+                        <div>Folio</div>
+                        <div>Total</div>
+                        <div>Factura</div>
+                        <div>Plazo</div>
+                        <div>pago</div>
+                        <div>Credito</div>
                         <?php
-                        $dinero = $row['total'];
-                        $final = formatoDinero($dinero);
-                        $folio = $row['folio'];
-                        ?>
-                        <div class="table_item"> <?php echo $row["fecha"] ?> </div>
-                        <div class="table_item"> <?php echo $row["razon_social"] ?> </div>
-                        <div class="table_item"> <?php echo $row["folio"] ?> </div>        
-                        <div class="table_item"> <?php echo "$".$final ?> </div>        
-                        <div class="table_item"> <?php echo $row["num_factura"] ?> </div>
-                        <div class="table_item"> <?php echo $row["plazo"] ?> </div>
-                        <div class="table_item"> <?php echo $row["id_pago"] ?> </div>
-                        <div class="table_item"> <?php echo $row["id_credito"] ?> </div>
-                        <div class="detalles_venta" id="modal">
-                        
-                        <div class="detalles_contenido">
-                                <div onclick="cerrarModal()" class="cerrar">
-                                        <button class="equis"><i class="fas fa-times"></i></button> 
-                                </div> 
-
-                                <div>
-                                        <h2>Detalles ventas</h2>
-                                 </div>
-                                <div class="tabla_modal">
-                                        <div>Fecha</div>
-                                        <div>Cliente</div>
-                                        <div>Folio</div>
-                                        <div>Total</div>
-                                        <div>Factura</div>
-                                        <div>Plazo</div>
-                                        <div>pago</div>
-                                        <div>Credito</div>
-                                        <?php
-                                                $detalles = "SELECT * FROM descripcion_ventas  WHERE folio_ventas = $folio";
-                                                $query = mysqli_query($conn, $detalles);
-                                                if (mysqli_num_rows($query)==0) { echo "No hay resultados"; }
-                                                while($row = mysqli_fetch_assoc($query)){
-                                                        echo $row['folio_ventas'];
-                                                        echo $row['calibre'];
-                                                        echo $row['cajas'];
-                                                        echo $row['subtotal'] . "<br>";
-                                                }
-                                                
-                                        ?>
+                                $detalles = "SELECT * FROM descripcion_ventas  WHERE folio_ventas = $folio";
+                                $query = mysqli_query($conn, $detalles);
+                                if (mysqli_num_rows($query)==0) { echo "No hay resultados"; }
+                                while($row = mysqli_fetch_assoc($query)){
+                                        echo $row['folio_ventas'];
+                                        echo $row['calibre'];
+                                        echo $row['cajas'];
+                                        echo $row['subtotal'] . "<br>";
+                                }
                                 
-                                </div>
+                        ?>
                 
-
-                        </div>
                 </div>
 
-                <?php } ?>
 
         </div>
 </div>
 
+<?php } ?>
+        </div>
+
 </div>
-
-<div class="otro">
-
-</div>
-
-<button id="modal_btn">Ver modal</button>
-
 
 
 <?php 
