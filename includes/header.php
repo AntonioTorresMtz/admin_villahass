@@ -25,7 +25,8 @@
 <div class="vinculos">
     <a href="ventas_menu.php">Ventas</a>
     <a href="compras_menu.php">Compras</a>
-    <a href="caja_compras.php">Caja</a>
+    <a href="caja_compras.php">CajaC</a>
+    <a href="caja_menu.php">CajaV</a>
     <a href="clientes_menu.php">Clientes</a>
 </div>
 

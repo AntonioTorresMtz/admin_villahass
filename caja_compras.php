@@ -10,16 +10,16 @@
        <div class="titulo-modal">
             <h2>Nuevo pago</h2>
        </div>
-        <form action="pagos.php" method="post">
+        <form action="pagos_compras.php" method="post">
             <label for="metodo">Forma de pago</label>
                 <select name="metodo" id="metodo">
                     <option value="Efectivo">Efectivo</option>
                     <option value="Cheque">Cheque</option>
                     <option value="Transferencia">Transferencia</option>
                 </select>
-            <input type="text" placeholder="Folio credito" name="folioCredito">
+            <input type="number" placeholder="Folio credito" name="folioCredito">
             <label for="monto"> Monto </label>
-            <input type="text" placeholder="monto" name="monto" id="monto">
+            <input type="number" placeholder="monto" name="monto" id="monto">
             <label for="caja"> Caja </label>
             <select name="caja" id="caja">
                 <?php 
@@ -36,6 +36,12 @@
     </div>
 
     <div class="creditos__tabla">
+        <div class="filtro_creditos">
+            <form action="">
+                <input type="text">
+            </form>
+        </div>
+
         <div class="tabla_creditos">
             <div class="titulo">Creditos</div>
             <div class="cabeceras-8">
@@ -48,6 +54,7 @@
                 <div class="table_header">Monto</div>
                 <div class="table_header">Estatus</div>
             </div>
+
             <div class="tabla creditos">
                     <?php 
                     $creditos = "SELECT c.id_creditoCom,  cl.razon_social, c.id_compra, c.fecha_inicio, c.forma_pago, 
@@ -80,7 +87,7 @@
                             <div class="table_item estatusPagado"> <?php echo $row["estado"] ?> </div> 
                                 <?php } ?>
                     <?php } ?>
-                </div>
+             </div>
         </div>
     </div>
 </div>
@@ -88,7 +95,7 @@
 <div class="menu_caja1">
     <div class="ventas__menu">
         <div class="tabla_pagos">
-            <div class="titulo">Pagos Liquidacion</div>
+            <div class="titulo">Pagos de Creditos</div>
             <div class="cabeceras">
                 <div class="table_header">Folio de pago</div>
                 <div class="table_header">Fecha</div>
@@ -99,8 +106,8 @@
             </div>
             <div class="tabla pagos">
                 <?php 
-                $ventas = "SELECT a.id_pagoCom, b.nombre, a.fecha, a.monto, a.metodo, a.id_caja, id_credito FROM
-                pagos_compras a  INNER JOIN caja b on a.id_caja = b.id_caja";
+                $ventas = "SELECT a.id_pagoCom, b.nombre, a.fecha, a.monto, a.metodo, a.id_caja, a.id_credito FROM
+                pagos_compras a  INNER JOIN caja b on a.id_caja = b.id_caja WHERE a.id_credito > 0";
                 $resultado = mysqli_query($conn, $ventas);
 
                 while($row = mysqli_fetch_assoc($resultado)) {?>
@@ -124,7 +131,7 @@
 
     <div class="ventas__menu">
         <div class="tabla_pagos">
-            <div class="titulo">Pagos creditos</div>
+            <div class="titulo">Pagos Liquidacion</div>
             <div class="cabeceras">
                 <div class="table_header">Folio de pago</div>
                 <div class="table_header">Fecha</div>

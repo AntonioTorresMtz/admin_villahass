@@ -27,14 +27,10 @@ $clientes = "SELECT * FROM cliente";
                 
                 <?php $resultado = mysqli_query($conn, $precio);
 
-while($row = mysqli_fetch_assoc($resultado)) {?>
-        <div class="table_item"> <?php echo $row["nombre"] ?> </div>
-        <div class="table_item"> <?php echo $row["precio"] ?> </div>
-        <?php } ?>
-                
-                
-                
-                
+                while($row = mysqli_fetch_assoc($resultado)) {?>
+                <div class="table_item"> <?php echo $row["nombre"] ?> </div>
+                <div class="table_item"> <?php echo $row["precio"] ?> </div>
+                <?php } ?>     
         </div>
 </div>
 
