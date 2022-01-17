@@ -10,8 +10,14 @@
     VALUES ('$monto', '$metodo', '$caja', '$folioCredito')";
     $resultado = mysqli_query($conn, $pago);
 
-    $credito =  "UPDATE  creditos SET monto_debe=monto_debe-'$monto' WHERE id_credito = '$folioCredito'";
+    $credito =  "UPDATE  creditos SET monto_debe = monto_debe-'$monto' WHERE id_credito = '$folioCredito'";
     $caja_actual = mysqli_query($conn, $credito);
+
+    if(!$caja_actual){
+        printf("Error en pago credito: %s\n", mysqli_error($conn));
+    } else{
+        echo 'Exito pago credito <br>' ;
+    }
 
     $cajaUp = "UPDATE caja SET dinero = dinero+'$monto' WHERE id_caja = $caja";
     $caja_actual = mysqli_query($conn, $cajaUp);

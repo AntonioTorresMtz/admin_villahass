@@ -3,6 +3,7 @@
     include 'includes/header.php';
     include 'includes/metodos.php';
     $precioCon = "SELECT * FROM creditos";
+    $clientes = "SELECT * FROM clientes";
 ?>
 
 <div class="menu_caja1">
@@ -36,25 +37,23 @@
     </div>
 
     <div class="creditos__tabla">
-        <div class="filtro_creditos">
-            <form action="">
-                <input type="text">
-            </form>
-        </div>
-
+        <?php include("filtro_creditoCom.php")?>
         <div class="tabla_creditos">
             <div class="titulo">Creditos</div>
             <div class="cabeceras-8">
                 <div class="table_header">Folio de credito</div>
                 <div class="table_header">Razon Social</div>
-                <div class="table_header">Folio de venta</div>
+                <div class="table_header">Folio de compra</div>
                 <div class="table_header">Fecha de Inicio</div>
                 <div class="table_header">Forma de pago</div>
                 <div class="table_header">Fecha limite</div>
                 <div class="table_header">Monto</div>
                 <div class="table_header">Estatus</div>
             </div>
-
+            
+            <?php
+             $where = "";
+            include("includes/filtro_creditos.php") ?>
             <div class="tabla creditos">
                     <?php 
                     $creditos = "SELECT c.id_creditoCom,  cl.razon_social, c.id_compra, c.fecha_inicio, c.forma_pago, 
@@ -63,7 +62,7 @@
                     ON c.id_compra = v.id_compra
                     INNER JOIN cliente AS cl
                     ON v.id_cliente = cl.id_cliente
-                    ORDER BY c.id_creditoCom DESC;";
+                    /*ORDER BY c.id_creditoCom DESC*/" . $where;
                     $resultado = mysqli_query($conn, $creditos);
 
                     while($row = mysqli_fetch_assoc($resultado)) {?>
@@ -94,6 +93,8 @@
 
 <div class="menu_caja1">
     <div class="ventas__menu">
+    <?php include("filtro_creditoCom.php")?>
+        <div class="tabla_creditos">
         <div class="tabla_pagos">
             <div class="titulo">Pagos de Creditos</div>
             <div class="cabeceras">

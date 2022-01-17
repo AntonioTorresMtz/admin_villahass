@@ -10,7 +10,7 @@
        <div class="titulo-modal">
             <h2>Nuevo pago</h2>
        </div>
-        <form action="pagos_compras.php" method="post">
+        <form action="pagos.php" method="post">
             <label for="metodo">Forma de pago</label>
                 <select name="metodo" id="metodo">
                     <option value="Efectivo">Efectivo</option>
@@ -100,7 +100,7 @@
             <div class="tabla pagos">
                 <?php 
                 $ventas = "SELECT a.id_pago, b.nombre, a.fecha, a.monto, a.metodo, a.id_caja, id_credito FROM
-                pagos a  INNER JOIN caja b on a.id_caja = b.id_caja WHERE a.id_credito > 0 ORDER BY a.id_pago DESC";
+                pagos a INNER JOIN caja b on a.id_caja = b.id_caja WHERE a.id_credito > 0 ORDER BY a.id_pago DESC";
                 $resultado = mysqli_query($conn, $ventas);
 
                 while($row = mysqli_fetch_assoc($resultado)) {?>

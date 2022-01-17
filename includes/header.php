@@ -17,17 +17,23 @@
 
 </head>
 <body>
-
-<nav class="cabecera">
-<div class="logo">
-    <a href="index.php"><img src="img/villahass.png" alt="roja"></a>
-</div>
-<div class="vinculos">
-    <a href="ventas_menu.php">Ventas</a>
-    <a href="compras_menu.php">Compras</a>
-    <a href="caja_compras.php">CajaC</a>
-    <a href="caja_menu.php">CajaV</a>
-    <a href="clientes_menu.php">Clientes</a>
-</div>
-
-</nav>
+    <?php
+    include("login_validar.php");
+    ?>
+    <nav class="cabecera">
+    <div class="logo">
+        <a href="index.php"><img src="img/villahass.png" alt="roja"></a>
+    </div>
+    <div class="vinculos">
+        <a href="ventas_menu.php">Ventas</a>
+        <a href="compras_menu.php">Compras</a>
+        <a href="caja_compras.php">CajaC</a>
+        <a href="caja_menu.php">CajaV</a>
+        <a href="clientes_menu.php">Clientes</a>
+        <a href="gastos_menu.php">Gastos</a>
+        <a href="inventario.php">Inventario</a>
+    </div>
+    </nav>
+    <div class="session">
+        <a href="cerrar.php" class="cerrar_sesion">Cerrar sesion</a>
+    </div>

@@ -6,41 +6,14 @@ from compras a
 inner join cliente b on a.id_cliente = b.id_cliente ";
 //ORDER BY fecha DESC
 
-
 $precio = "SELECT * FROM precio";
 $clientes = "SELECT * FROM cliente";
 ?>
- 
- 
-	
-
-
-<div onclick="mostrar_ocultarPrecios()" >
-        <h3 >Mostrar precios</h3>
-</div>
-
-<div>
-        <div  class="tabla precio" id="desplePrecios">
-                <div class="table_title">Precios</div>
-                <div class="table_header">Tipo</div>
-                <div class="table_header">Precio</div> 
-                
-                <?php $resultado = mysqli_query($conn, $precio);
-
-                while($row = mysqli_fetch_assoc($resultado)) {?>
-                <div class="table_item"> <?php echo $row["nombre"] ?> </div>
-                <div class="table_item"> <?php echo $row["precio"] ?> </div>
-                <?php } ?>     
-        </div>
-</div>
-
 
 <div class="ventas-cabecera">
         <div class="formulario">
        
                 <h2>Compra Nueva</h2>
-       
-
                 <form action="compras.php" method="post">
 
         <label for="cliente"> Acredor</label>

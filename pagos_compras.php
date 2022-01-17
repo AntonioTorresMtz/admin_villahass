@@ -7,10 +7,17 @@
     $caja = $_POST ["caja"];
     
 
-    $pago = "INSERT INTO pagos_compras (monto, metodo, id_caja, id_credito) 
-    VALUES ('$monto', '$metodo', '$caja', '$folioCredito')";
+    $pago = "INSERT INTO `pagos_compras` (`id_pagoCom`, `monto`, `fecha`, `metodo`, `id_caja`, `id_credito`)
+     VALUES (NULL, '$monto', current_timestamp(), '$metodo', '$caja', '$folioCredito')";
     $resultado = mysqli_query($conn, $pago);
 
+    
+
+    if(!$resultado){
+        printf("Error en pago credito: %s\n", mysqli_error($conn));
+    } else{
+        echo 'Exito pago credito <br>' ;
+    }
 
     //Actualizamos la deuda del monto
     $credito =  "UPDATE  credito_compra SET monto_deuda = monto_deuda-'$monto' WHERE id_creditoCom = '$folioCredito'";
@@ -34,7 +41,5 @@
     }
 
 
-
-    echo 'Listo :P';
     mysqli_close($conn);
 ?>
