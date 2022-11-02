@@ -77,7 +77,7 @@
                             
                             <div class="table_item"> <?php echo $row["forma_pago"] ?> </div>
                             <div class="table_item"> <?php echo $row["fecha_limite"] ?> </div>
-                            <div class="table_item"> <?php echo "$"."$final" ?> </div>
+                            <div class="table_item"> <?php echo "$final" ?> </div>
                             <?php if ($row["estado"] == "Pendiente"){?>
 
                             <div class="table_item estatusDebe"> <?php echo $row["estado"] ?> </div>
@@ -91,43 +91,43 @@
     </div>
 </div>
 
-<div class="menu_caja1">
+<div class="menu_caja2">
     <div class="ventas__menu">
-    <?php include("filtro_creditoCom.php")?>
-        <div class="tabla_creditos">
-        <div class="tabla_pagos">
-            <div class="titulo">Pagos de Creditos</div>
-            <div class="cabeceras">
-                <div class="table_header">Folio de pago</div>
-                <div class="table_header">Fecha</div>
-                <div class="table_header">Monto</div>
-                <div class="table_header">Metodo</div>
-                <div class="table_header">Caja</div>
-                <div class="table_header">Folio credito</div>
+        <?php include("filtro_creditoCom.php")?>
+        
+            <div class="tabla_pagos">
+                <div class="titulo">Pagos de Creditos</div>
+                <div class="cabeceras">
+                    <div class="table_header">Folio de pago</div>
+                    <div class="table_header">Fecha</div>
+                    <div class="table_header">Monto</div>
+                    <div class="table_header">Metodo</div>
+                    <div class="table_header">Caja</div>
+                    <div class="table_header">Folio credito</div>
+                </div>
+                <div class="tabla pagos">
+                    <?php 
+                    $ventas = "SELECT a.id_pagoCom, b.nombre, a.fecha, a.monto, a.metodo, a.id_caja, a.id_credito FROM
+                    pagos_compras a  INNER JOIN caja b on a.id_caja = b.id_caja WHERE a.id_credito > 0";
+                    $resultado = mysqli_query($conn, $ventas);
+
+                    while($row = mysqli_fetch_assoc($resultado)) {?>
+
+                    <?php  $dinero = $row['monto'];
+                        $dineroTabla =  formatoDinero($dinero);
+                            ?>
+
+                    <div class="table_item"> <?php echo $row["id_pagoCom"] ?> </div>
+                    <div class="table_item"> <?php echo $row["fecha"] ?> </div>
+                    <div class="table_item"> <?php echo "$dineroTabla" ?> </div>
+                    
+                    <div class="table_item"> <?php echo $row["metodo"] ?> </div>
+                    
+                    <div class="table_item"> <?php echo $row["nombre"] ?> </div>
+                    <div class="table_item"> <?php echo $row["id_credito"] ?> </div>
+                    <?php } ?>
+                </div>
             </div>
-            <div class="tabla pagos">
-                <?php 
-                $ventas = "SELECT a.id_pagoCom, b.nombre, a.fecha, a.monto, a.metodo, a.id_caja, a.id_credito FROM
-                pagos_compras a  INNER JOIN caja b on a.id_caja = b.id_caja WHERE a.id_credito > 0";
-                $resultado = mysqli_query($conn, $ventas);
-
-                while($row = mysqli_fetch_assoc($resultado)) {?>
-
-                <?php  $dinero = $row['monto'];
-                    $dineroTabla =  formatoDinero($dinero);
-                        ?>
-
-                <div class="table_item"> <?php echo $row["id_pagoCom"] ?> </div>
-                <div class="table_item"> <?php echo $row["fecha"] ?> </div>
-                <div class="table_item"> <?php echo "$"."$dineroTabla" ?> </div>
-                
-                <div class="table_item"> <?php echo $row["metodo"] ?> </div>
-                
-                <div class="table_item"> <?php echo $row["nombre"] ?> </div>
-                <div class="table_item"> <?php echo $row["id_credito"] ?> </div>
-                <?php } ?>
-            </div>
-        </div>
     </div>
 
     <div class="ventas__menu">
@@ -158,7 +158,7 @@
 
                 <div class="table_item"> <?php echo $row["id_pagoCom"] ?> </div>
                 <div class="table_item"> <?php echo $row["fecha"] ?> </div>
-                <div class="table_item"> <?php echo "$"."$dineroTabla" ?> </div>
+                <div class="table_item"> <?php echo "$dineroTabla" ?> </div>
                 
                 <div class="table_item"> <?php echo $row["metodo"] ?> </div>
                 

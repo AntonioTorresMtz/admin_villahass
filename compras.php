@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include 'db.php';
     $total =  0;
     $factura =  $_POST["factura"];
@@ -6,6 +7,10 @@
     $formaPago = $_POST["metodoPago"];
     $forma_pago = $_POST["forma"];  //Credito
     $forma_pagoL =$_POST["formaL"]; //Liquidacion
+
+    if(empty($factura)){
+        $factura = "Sin factura";
+    }
 
     //INSERT DE LA VENTA
     $sql = "INSERT INTO `compras` (`id_compra`, `total`, `factura`, `id_cliente`, `id_pago`, `id_credito`, `fecha`) 
@@ -89,8 +94,14 @@
 
     $totalNew = "UPDATE compras SET total = '$total' WHERE id_compra='$id'";
     $resultado = mysqli_query($conn, $totalNew);
-
+    
+    
+    //$dineroCaja = "SELECT dinero FROM `caja` WHERE id_caja = 3";
     if($formaPago == "liquida"){
+
+       // if(true){
+
+        //} */
 
         $query = "INSERT INTO `pagos_compras` (`id_pagoCom`, `monto`, `fecha`, `metodo`, `id_caja`, `id_credito`)
          VALUES (NULL, '$total', current_timestamp(), '$forma_pagoL', '3', NULL);";
@@ -124,7 +135,10 @@
         if(!$resultado){
             echo 'Error caja<br>';
         } else{
-            echo 'Exito caja <br>' ;
+            echo 'Exito update folio credito <br>' ;
+            $_SESSION['exito_compra'] = "Compra exitosa";
+            header("Location: compras_menu.php");
+            exit();
         }
     
     } elseif ($formaPago == "credito"){
@@ -154,9 +168,13 @@
             echo 'Error update folio credito<br>';
         } else{
             echo 'Exito update folio credito <br>' ;
+            $_SESSION['exito_compra'] = "Compra exitosa";
+            header("Location: compras_menu.php");
+            exit();
         }
     }
 
+    
     mysqli_close($conn);
 ?>
 

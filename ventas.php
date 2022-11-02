@@ -1,16 +1,25 @@
 <?php
+    session_start();
     include 'db.php';
     $total =  0;
     $factura =  $_POST["factura"];
-    $plazo =  $_POST["plazo"];
     $cliente = $_POST["cliente"];
     $formaPago = $_POST["metodoPago"];
-    $forma_pago = $_POST["forma"];  //Credito
     $forma_pagoL =$_POST["formaL"]; //Liquidacion
+    $notas = $_POST["notas"];
+    $cuenta = $_POST["cuenta"];
+
+    if(empty($factura)){
+        $factura = "Sin factura";
+    }
+
+    if($forma_pagoL == "Efectivo"){
+        $cuenta = '3';
+    }
 
     //INSERT DE LA VENTA
-    $sql = "INSERT INTO ventas (folio, fecha, total, num_factura, plazo, id_cliente, id_credito, id_pago, id_precio) 
-    VALUES (NULL, current_timestamp(), '1', '$factura', '$plazo', '$cliente', '0', '0', NULL)";
+    $sql = "INSERT INTO ventas (folio, fecha, total, num_factura,  id_cliente, id_credito, id_pago, id_precio) 
+    VALUES (NULL, current_timestamp(), '1', '$factura', '$cliente', '0', '0', NULL)";
 
     $resultado = mysqli_query($conn, $sql);
     if(!$resultado){
@@ -21,7 +30,8 @@
 
     //Creacion de las variables para  calibres y cantidades
     $items1 = ($_POST['calibre']); //Arreglo de calibres
-    $items2 = ($_POST['cajas']);   //Arreglo de cantidad de cajas
+    $items2 = ($_POST['cajas']);   //Arreglo de cantidad de kilos
+    $items3 = ($_POST['precio']);   //Arreglo de precios
     ///////////// SEPARAR VALORES DE ARRAYS, EN ESTE CASO SON 4 ARRAYS UNO POR CADA INPUT (ID, NOMBRE, CARRERA Y GRUPO////////////////////)
     
     $folio = "SELECT MAX(folio) FROM ventas";
@@ -32,30 +42,25 @@
     }
 
     while(true) {
-
          //// RECUPERAR LOS VALORES DE LOS ARREGLOS ////////
         $item1 = current($items1); //Calibre
         $item2 = current($items2);
-        $precioSub = "SELECT precio FROM precio where nombre='$item1'";
-        $resultado = mysqli_query($conn, $precioSub);
-        $precio = 0;
-        while($row = mysqli_fetch_assoc($resultado)) {
-                $precio = $row['precio'];
-            } 
-        
-        $item3 = $precio * $item2;
+        $item3 = current($items3);
+
+        //$item3 = $precios * $item2;
         
         ////// ASIGNARLOS A VARIABLES ///////////////////
         $calibre=(( $item1 !== false) ? $item1 : ", &nbsp;");
         $cajas=(( $item2 !== false) ? $item2 : ", &nbsp;");
-        $subtotal= (int) $cajas * (int) $precio;
+        $precio=(( $item3 !== false) ? $item3 : ", &nbsp;");
+        $subtotal = $cajas*$precio;
          //// CONCATENAR LOS VALORES EN ORDEN PARA SU FUTURA INSERCIÓN ////////
         $valores='('.$id.',"'.$calibre.'","'.$cajas.'","'.$subtotal.'"),';
         //////// YA QUE TERMINA CON COMA CADA FILA, SE RESTA CON LA FUNCIÓN SUBSTR EN LA ULTIMA FILA /////////////////////
         $valoresQ= substr($valores, 0, -1);
         ///////// QUERY DE INSERCIÓN ////////////////////////////
-        $sql1 = "INSERT INTO descripcion_ventas (folio_ventas, calibre, cajas, subtotal)
-                VALUES ('$id', '$calibre', '$cajas', '$subtotal')";
+        $sql1 = "INSERT INTO descripcion_ventas (folio_ventas, calibre, cajas, subtotal, precio)
+                VALUES ('$id', '$calibre', '$cajas', '$subtotal', '$precio')";
 
         $sqlRes=$conn->query($sql1); //Consulta para el insert
         if(!$sql1){
@@ -75,6 +80,7 @@
         // Up! Next Value
         $item1 = next( $items1 );
         $item2 = next( $items2 );
+        $item3 = next( $items3 );
         // Check terminator
         if($item1 === false && $item2 === false) break;
 	}
@@ -91,7 +97,7 @@
 
     if($formaPago == "liquida"){
         $query = "INSERT INTO `pagos` (`id_pago`, `monto`, `fecha`, `metodo`, `id_caja`, `id_credito`)
-                 VALUES (NULL, '$total', current_timestamp(), '$forma_pagoL', '3', '')";
+                 VALUES (NULL, '$total', current_timestamp(), '$forma_pagoL', '$cuenta', '')";
                   
         $result = mysqli_query($conn, $query);
         if(!$result){
@@ -116,18 +122,22 @@
             echo 'Exito PAGO <br>' ;
         }
 
-        $updateCaja = "UPDATE `caja` SET `dinero` =  dinero + '$total' WHERE `caja`.`id_caja` = '3' ";
+        $updateCaja = "UPDATE `caja` SET `dinero` =  dinero + '$total' WHERE `caja`.`id_caja` = '$cuenta' ";
         $resultado = mysqli_query($conn, $updateCaja);
 
         if(!$resultado){
             echo 'Error caja<br>';
         } else{
-            echo 'Exito caja <br>' ;
+            echo 'Exito venta <br>' ;
+            $_SESSION['exito_venta'] = "Venta exitosa";
+            echo "Cuenta ". $cuenta;
+            header("Location: ventas_menu.php");
+            exit();            
         }
     
     } elseif ($formaPago == "credito"){
-        $query = "INSERT INTO `creditos` (`id_credito`, `fecha_inicio`, `forma_pago`, `fecha_limite`, `monto_debe`, `id_pago`, `folio_venta`, `Estado`)
-        VALUES (NULL, current_timestamp(), '$forma_pago', '$plazo', '$total', '', '$id', 'Pendiente')";
+        $query = "INSERT INTO `creditos` (`id_credito`, `fecha_inicio`, `monto_debe`, `id_pago`, `folio_venta`, `Estado`, notas)
+        VALUES (NULL, current_timestamp(),  '$total', '', '$id', 'Pendiente', '$notas')";
                   
         $result = mysqli_query($conn, $query);
         if(!$result){
@@ -149,7 +159,10 @@
         if(!$resultado){
             echo 'Error ventas folio credito<br>';
         } else{
-            echo 'Exito ventas folio credito <br>' ;
+            echo 'Exito venta <br>' ;
+            $_SESSION['exito_venta'] = "Venta exitosa";
+            header("Location: ventas_menu.php");
+            exit();            
         }
     }
 

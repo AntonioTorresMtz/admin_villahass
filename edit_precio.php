@@ -7,7 +7,7 @@ $calibre = "SELECT nombre, precio FROM precio WHERE id_precio = '$id'";
 
 <div class="container_form cliente center">
         <div class="titulo-modal">
-            <h2>Gasto nuevo</h2>
+            <h2>Precio</h2>
         </div>
         <form action="edit_precio_insert.php" method="post">
             <?php 

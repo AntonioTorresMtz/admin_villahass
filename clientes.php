@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('db.php');
 
 $nombre = $_POST["nombre"];
@@ -9,11 +10,15 @@ $razonSocial = $_POST["razonSocial"];
 $direccion = $_POST["direccion"];
 
 
+
 $sql = "INSERT INTO `cliente` (`id_cliente`, `Nombre`, `ApetPa`, `ApetMa`, `telefono`, `razon_social`, `direccion`) 
 VALUES (NULL, '$nombre', '$apePat', '$apeMat', '$telefono', '$razonSocial', '$direccion')";
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    $_SESSION['exito_cliente'] = "Cliente nuevo";
+    header("Location: clientes_menu.php");
+    exit(); 
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

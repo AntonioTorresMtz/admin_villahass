@@ -4,6 +4,8 @@ body {
   background-color: #f5f1f1;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 20px;
+  background-image: url(../img/fondo2.jpg);
+  background-size: contain;
 }
 
 a {
@@ -17,6 +19,18 @@ a {
   justify-content: space-around;
   margin-bottom: 20px;
   height: auto;
+  background: crimson;
+}
+
+.menu_caja2{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  width: 100%;
+  height: auto;
+  
 }
 
 .cabecera {
@@ -25,6 +39,7 @@ a {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  background-image: url(../img/fondo.jpg);
 }
 
 .cabecera img {
@@ -43,14 +58,16 @@ a {
 }
 
 .vinculos {
-  background: #fbe69e;
+  background: #000;
+  /*background: #fbe69e; */
   width: 100%;
   text-align: center;
   padding: 6px 0;
 }
 
 .vinculos a {
-  color: #273515;
+  color: whitesmoke;
+  /*color: #273515; */
   font-size: 30px;
   margin-left: 7px;
 }
@@ -70,6 +87,11 @@ a {
   font-size: 15px;
 }
 
+.cliente{
+  height: auto;
+  margin-bottom: 20px;
+}
+
 .login {
   height: auto;
   margin-left: auto;
@@ -77,7 +99,7 @@ a {
 }
 
 .formulario form {
-  width: 300px;
+  width: 100%;
   background-color: white;
   margin-right: auto;
   margin-left: auto;
@@ -102,6 +124,16 @@ form select {
   border: 1px solid #d9dad9;
 }
 
+.detalles_tabla{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  /*background: cyan;*/
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+}
+
 input[type="submit"] {
   margin-bottom: 23px;
   background: #aad576;
@@ -110,6 +142,17 @@ input[type="submit"] {
 }
 
 .pago {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.factura{
   width: 100%;
   height: 40px;
 
@@ -139,7 +182,10 @@ input[type="radio"] {
 }
 
 .compras {
-  background: #f79d65;
+  width: 350px;
+  height: 450px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
 }
 
 .cabeceras {
@@ -169,11 +215,38 @@ input[type="radio"] {
   background-color: white;
 }
 
+.cabeceras-2 {
+  width: 200 px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 40px; /* Altura de las celdas */
+  background-color: white;
+}
+
 .cabeceras-4 {
   width: 200 px;
   height: 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 40px; /* Altura de las celdas */
+  background-color: white;
+}
+
+.cabeceras-5 {
+  width: 200 px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 40px; /* Altura de las celdas */
+  background-color: white;
+}
+
+.cabeceras-7 {
+  width: 200 px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
   grid-auto-rows: 40px; /* Altura de las celdas */
   background-color: white;
 }
@@ -201,18 +274,18 @@ input[type="radio"] {
 
 .clientes {
   width: 103%;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   margin: auto;
   height: 300px;
   margin-bottom: 20px;
-  grid-auto-rows: 50px;
+  grid-auto-rows: auto;
   overflow: auto;
   background: white;
   box-shadow: none;
 }
 
 .inventario {
-  width: 103%;
+  width: 100%;
   grid-template-columns: repeat(4, 1fr);
   margin: auto;
   height: 200px;
@@ -223,9 +296,49 @@ input[type="radio"] {
   box-shadow: none;
 }
 
-.gastos {
+
+.descripcion {
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  height: auto;
+  margin-bottom: 20px;
+  grid-auto-rows: 25px;
+  overflow: auto;
+  background: white;
+  box-shadow: none;
+}
+
+
+
+
+.inversion {
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  margin: auto;
+  max-height: 100px;
+  margin-bottom: 20px;
+  grid-auto-rows: 25px;
+  overflow: auto;
+  background: white;
+  box-shadow: none;
+}
+
+.promedio {
   width: 103%;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  height: 200px;
+  margin-bottom: 20px;
+  grid-auto-rows: 25px;
+  overflow: auto;
+  background: white;
+  box-shadow: none;
+}
+
+.gastos {
+  width: 100%;
+  grid-template-columns: repeat(7, 1fr);
   height: 300px;
   margin: auto;
   margin-bottom: 20px;
@@ -234,6 +347,17 @@ input[type="radio"] {
   background: white;
   box-shadow: none;
   grid-auto-rows: auto; /* Altura de las celdas */
+}
+
+.gastos_cabecera {
+  grid-auto-rows: 50px;
+}
+
+.detalles_cabecera{
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: auto;
+  height: 60px;
+  
 }
 
 .creditos__tabla {
@@ -263,6 +387,17 @@ input[type="radio"] {
   margin-bottom: 20px;
   grid-auto-rows: 60px;
   overflow: auto;
+}
+
+.pagos2 {
+  width: 103.1%;
+  grid-template-columns: repeat(5, 1fr);
+  margin: auto;
+  height: auto;
+  margin-bottom: 20px;
+  grid-auto-rows: 60px;
+  overflow: auto;
+  grid-auto-rows: auto; /* Altura de las celdas */
 }
 
 .precio .table_title {
@@ -305,6 +440,7 @@ input[type="radio"] {
   width: 98%;
   /* background-color: crimson; */
   margin: auto;
+  
 }
 
 .ejemplo {
@@ -335,6 +471,13 @@ input[type="radio"] {
   width: 700px;
 }
 
+.tabla_detalles{
+  width: 600px;
+  height: auto;
+  background: white;
+  margin-bottom: 0;
+}
+
 .tabla_pagos {
   width: 100%;
   box-shadow: 0 0 20px #333;
@@ -348,6 +491,7 @@ input[type="radio"] {
   width: 99%;
   box-shadow: 0 0 20px #333;
   min-width: 500px;
+  background: hotpink;
 }
 
 .titulo {
@@ -472,7 +616,7 @@ button:hover {
 }
 
 .tabla_clientes {
-  width: 600px;
+  width: 800px;
   background-color: #273515;
   box-shadow: 0 0 20px #333;
 }
@@ -555,6 +699,7 @@ button:hover {
 
 .tabla_inventario {
   width: 500px;
+  margin-bottom: 0;
 }
 
 .filtro_creditos {
@@ -590,10 +735,20 @@ button:hover {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  
+}
+
+.abono_form {
+  height: 340px;
+  margin: 20px;
 }
 
 .gasto_form {
   height: 380px;
+}
+
+.activo_form {
+  height: 300px;
 }
 
 .session {
@@ -604,6 +759,7 @@ button:hover {
 
 .session a {
   color: #000;
+  padding-left: 30px;
 }
 
 .session a:hover {
@@ -634,3 +790,73 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
 }
+
+.facturaInput{
+  display: none;
+}
+
+.exito{
+  margin-right: auto;
+  margin-left: auto;
+  background: rgb(188, 241, 107);
+  color: white;
+  width: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.exito h1{
+  font-size: 30px;
+}
+
+.edita{
+  height: 450px;
+  overflow-y: scroll;
+  margin-bottom: 30px;
+}
+
+.pie{
+  width: 100%;
+  height: 40px;
+  background: #aad576;
+}
+
+.edita_activo{
+  height: 300px;
+}
+
+.liquidado{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 150px;
+  background: #aad576; 
+  box-shadow: 0 0 20px #333;
+  font-size: 30px;
+}
+
+.icono{
+  margin-left: 10px;
+}
+
+.cuenta{
+  display: none;
+}
+
+
+/*--------------BREAKPINTS-----------------*/
+@media (max-width: 910px){
+
+  .ventas-cabecera{
+    background: crimson;
+  }
+  
+  
+}
+  

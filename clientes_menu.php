@@ -23,13 +23,14 @@ include("db.php");
 
      <div class="tabla_clientes">
           <div class="titulo">Clientes</div>
-          <div class="cabeceras">
+          <div class="cabeceras-7">
                <div class="table_header">Razon Social</div>
                <div class="table_header">Nombre</div>
                <div class="table_header">Apellido Paterno</div>
                <div class="table_header">Apellido Materno</div>
                <div class="table_header">Telefono</div>
                <div class="table_header">Direccion</div> 
+               <div class="table_header">Editar</div> 
           </div>
           <div class="tabla clientes">
           <?php 
@@ -44,9 +45,47 @@ include("db.php");
           <div class="table_item"> <?php echo $row["ApetMa"] ?> </div>
           <div class="table_item"> <?php echo $row["telefono"] ?> </div>
           <div class="table_item"> <?php echo $row["direccion"] ?> </div>
+          <div class="table_item"> <a href="editar_cliente.php?id=<?php echo $row["id_cliente"];?>">
+            <i class="fas fa-edit"></i></a> </div>
           
           <?php } ?>
 
           </div>
      </div>
+     <?php
+          if(empty($_SESSION['exito'])){
+
+          } else{
+               //echo "EXITO!";
+               //$message = "Actualizacion exitosa";
+               //echo "<script type='text/javascript'>alert('$message');</script>";
+               echo "<script type='text/javascript'>Swal.fire(
+                    'Cambio exitoso!',
+                    'Se han cambiado los datos!',
+                    'success'
+               )</script>";
+               unset($_SESSION['exito']);
+          }
+
+          if(empty($_SESSION['exito_cliente'])){
+
+          } else{
+               //echo "EXITO!";
+               //$message = "Actualizacion exitosa";
+               //echo "<script type='text/javascript'>alert('$message');</script>";
+               echo "<script type='text/javascript'>Swal.fire(
+                    'Cliente creado exitosamente!',
+                    'Se ha creado un nuevo cliente!',
+                    'success'
+               )</script>";
+               unset($_SESSION['exito_cliente']);
+          }
+     
+          //session_unset();
+     ?>
 </div>
+
+<?php
+include('includes/footer.php');
+mysqli_close($conn);
+?>

@@ -12,6 +12,7 @@ function formatoDinero($suma){
                        $cont++;
                    }
        $final = strrev($final);
+       $final = "$".$final;
        return $final;
    }
 

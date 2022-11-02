@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("db.php");
 $id = $_POST["id"];
 $precioNuevo = $_POST['precio'];
@@ -10,6 +11,9 @@ if(!$resultado){
     echo "ocurrio ujn error "; 
 } else{
     echo "actualizacion exitosa";
+    $_SESSION['exito_precio'] = "Actualizacion exitosa";
+    header("Location: inventario.php");
+    exit();
 }
-
+    mysqli_close($conn);
 ?>

@@ -13,8 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <?php
@@ -22,7 +23,7 @@
     ?>
     <nav class="cabecera">
     <div class="logo">
-        <a href="index.php"><img src="img/villahass.png" alt="roja"></a>
+        <a href="index.php"><img src="img/villahass2.png" alt="roja"></a>
     </div>
     <div class="vinculos">
         <a href="ventas_menu.php">Ventas</a>
@@ -32,8 +33,10 @@
         <a href="clientes_menu.php">Clientes</a>
         <a href="gastos_menu.php">Gastos</a>
         <a href="inventario.php">Inventario</a>
+        <a href="activos_menu.php">Activos</a>
     </div>
     </nav>
     <div class="session">
+        <a href="inversion.php" class="">Agregar inversion</a>
         <a href="cerrar.php" class="cerrar_sesion">Cerrar sesion</a>
     </div>

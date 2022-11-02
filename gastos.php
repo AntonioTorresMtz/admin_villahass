@@ -1,13 +1,16 @@
 <?php
+session_start();
 include("db.php");
 
-$id_caja = $_POST["caja"];
+$abono = $_POST["abono"];
 $concepto = $_POST["concepto"];
 $monto = $_POST["monto"];
 $descripcion = $_POST["descripcion"];
 
-$gasto = "INSERT INTO `gastos` (`folio_gastos`, `concepto`, `monto`, `fecha`, `descripcion`, `id_caja`)
- VALUES (NULL, '$concepto', '$monto', current_timestamp(), '$descripcion', '$id_caja')";
+$deuda = $monto - $abono;
+//CREAR COMPRA
+$gasto = "INSERT INTO `gastos` (`folio_gastos`, `concepto`, `monto`, `fecha`, `descripcion`, `deuda_por_pagar`)
+ VALUES (NULL, '$concepto', '$monto', current_timestamp(), '$descripcion', '$deuda')";
 $resultado = mysqli_query($conn, $gasto);
 
 if(!$resultado){
@@ -16,15 +19,28 @@ if(!$resultado){
     echo 'Exito en un nuevo gasto <br>' ;
 }
 
-$caja =  "UPDATE  caja SET dinero = dinero-'$monto' 
-WHERE id_caja = '$id_caja'";
+//SELECCIONAR EL ID DE LA INSERCION PASADA
 
-$resultado = mysqli_query($conn, $caja);
+$folio = "SELECT MAX(folio_gastos) FROM gastos";
+$resultado = mysqli_query($conn, $folio);
+$id;
+while($row = mysqli_fetch_assoc($resultado)) {
+     $id = $row['MAX(folio_gastos)'];
+}
+
+//CREAR LISTA DE ABONOS
+$abono_t = "INSERT INTO abonos_gastos (`id_abono`, `id_gasto`, `monto`, `fecha`) 
+VALUES (NULL, '$id', '$abono', current_timestamp())";
+
+$resultado = mysqli_query($conn, $abono_t);
 
 if(!$resultado){
     printf("Error al actualizar caja: %s\n", mysqli_error($conn));
 } else{
-    echo 'Exito al actuliozar caja <br>' ;
+    echo "New record created successfully";
+    $_SESSION['exito_gasto'] = "Gasto nuevo";
+    header("Location: gastos_menu.php");
+    exit(); 
 }
 
 

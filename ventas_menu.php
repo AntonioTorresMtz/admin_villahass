@@ -1,8 +1,8 @@
 <?php include('includes/header.php');
 include("db.php");
 include 'includes/metodos.php';
-$ventas = "SELECT a.fecha, a.folio, b.razon_social,  a.total, a.num_factura, 
-a.plazo, a.id_pago,a.id_credito from ventas a 
+$ventas = "SELECT a.fecha, a.folio, b.razon_social,  a.total, a.num_factura,
+ a.id_pago,a.id_credito from ventas a 
 inner join cliente b on a.id_cliente = b.id_cliente ";
 //ORDER BY fecha DESC
 
@@ -16,106 +16,84 @@ $clientes = "SELECT * FROM cliente";
 ?>
         
 <div class="ventas-cabecera">
-        <div class="formulario">
+        <div class="formulario compras">
        
                 <h2>Venta Nueva</h2>
        
 
-                <form action="ventas.php" method="post">
+        <form action="ventas.php" method="post">
 
-        <label for="cliente"> Cliente</label>
-        <select name="cliente" id="cliente">
-        <?php $resultado = mysqli_query($conn, $clientes);
+                <label for="cliente"> Cliente</label>
+                <select name="cliente" id="cliente">
+                        <?php $resultado = mysqli_query($conn, $clientes);
 
-        while($row = mysqli_fetch_assoc($resultado)) {?>
-                <?php $id = $row["id_cliente"]?>
-                <option value="<?php echo $id?>"> <?php echo $row["razon_social"]?> </option>
+                        while($row = mysqli_fetch_assoc($resultado)) {?>
+                                <?php $id = $row["id_cliente"]?>
+                                <option value="<?php echo $id?>"> <?php echo $row["razon_social"]?> </option>
 
-        <?php } ?>
-                
-       </select>
+                        <?php } ?>    
+                </select>
 
-        <label for="calibre">Calibre</label>
+                <label for="calibre">Calibre</label>
 
                 <table class="table bg-info"  id="tabla">
-			<tr class="fila-fija">
-				<td>
+                        <tr class="fila-fija">
+                                <td>
                                 <select name="calibre[]" id="calibre">
-                                        <option value="Super">Super</option> 
-                                        <option value="Super B">Super B</option> 
-                                        <option value="Super Roña">Super Roña</option>
-                                        <option value="Extra">Extra</option> 
-                                        <option value="Extra B">Extra B</option> 
-                                        <option value="Extra Roña">Extra Roña</option>
-                                        <option value="Primera">Primera</option>
-                                        <option value="Primera B">Primera B</option>
-                                        <option value="Primera Roña">Primera Roña</option> 
-                                        <option value="Mediano">Mediano</option> 
-                                        <option value="Mediano B">Mediano B</option> 
-                                        <option value="Mediano Roña">Mediano Roña</option> 
-                                        <option value="Tercera">Tercera</option> 
-                                        <option value="Tercera B">Tercera B</option> 
-                                        <option value="Tercera Roña">Tercera Roña</option> 
-                                        <option value="Cuarta">Cuarta</option> 
-                                        <option value="Cuarta Roña">Cuarta Roña</option> 
-                                        <option value="Revuelto">Revuelto</option>        
+                                        <option value="Limpio">Limpio</option> 
+                                        <option value="Parejo">Parejo</option> 
+                                        <option value="Proceso">Proceso</option>
+                                        <option value="Canica">Canica</option> 
+                                        <option value="Desecho">Desecho</option> 
+                                        <option value="Maquila">Maquila</option>
+                                        <option value="Caja de 10 kg">Caja de 10 kg</option>        
                                 </select>  
                                 </td>
-				<td><input type="text" required name="cajas[]" placeholder="Numero de cajas"/></td>
-				
-				<!-- <td class="eliminar"><input type="button"   value="Menos -"/></td> -->
+                                <td><input type="number" required name="cajas[]" placeholder="No. de kg"/></td>
+                                <td><input type="number" required name="precio[]" placeholder="Precio"/></td>
+                                
+                                <!-- <td class="eliminar"><input type="button"   value="Menos -"/></td> -->
                                 <td class="eliminar"><button value="Menos -"><i class="fas fa-minus-circle"></i></button></td>
-			</tr>
-		</table>
-                <div class="btn-der">
-			<button id="adicional" name="adicional" type="button" class="btn btn-warning"> <i class="far fa-plus-square"></i> </button>
-		</div>
-            <input type="text" placeholder="Factura" name="factura" required>
-            <label for="plazo">Plazo</label>
-            <input type="date" placeholder="Plazo" name="plazo" id="plazo">
-            <div class="pago">
-                    
-                    <p>Tipo de pago:</p>
-                    
-                
-            <input type="radio" name="metodoPago" id="credito" value="credito"> <label for="credito">Credito</label>
-	    <input type="radio" name="metodoPago" id="liquida" value="liquida"> <label for="liquida">Liquida</label>
-            </div>
-        
-            <div class="credito_formulario" id="credito_formulario">
-                  <h2>Credito</h2>
-
-                        <label for="forma">Forma de pago</label>
-                        <select name="forma" id="forma">
-                                <option value="Efectivo">Efectivo</option>
-                                <option value="Cheque">Cheque</option>
-                                <option value="Transferencia">Transferencia</option>
-                        </select>
+                        </tr>
+                </table>
+                        <div class="btn-der">
+                                <button id="adicional" name="adicional" type="button" class="btn btn-warning"> <i class="far fa-plus-square"></i> </button>
+                        </div>
                         
-                        <label for="metodo">Metodo de pago</label>
-                        <select name="metodo" id="metodo">
-                                <option value="Una exibicion">Una exibicion</option>
-                                <option value="Parcialidades">Parcialidades</option>
-                                <option value="Diferido">Diferido</option>                
-                        </select>
+                        <div class="factura">
+                                <p>Facura:</p>
+                                <input type="radio" name="factura" id="sip" value="si"> <label for="si">Si</label>
+                                <input type="radio" name="factura" id="nop" value="no"> <label for="no">No</label>
+                        </div>
+                        <input type="text" placeholder="Factura" name="factura" class="facturaInput" id="facturaInput">
+                        <div class="pago"> 
+                                <p>Tipo de pago:</p>
+                                <input type="radio" name="metodoPago" id="credito" value="credito" required> <label for="credito">Credito</label>
+                                <input type="radio" name="metodoPago" id="liquida" value="liquida"> <label for="liquida">Liquida</label>
+                        </div>
+                
+                <div class="credito_formulario" id="credito_formulario">
+                        <h2>Credito</h2>
+                                <label for="condiciones">Condiciones</label>
+                                <input type="text" placeholder="Condiciones" id="condiciones" name="notas">
+                </div>
 
-                        <label for="condiciones">Condiciones</label>
-                        <input type="text" placeholder="Condiciones" id="condiciones">
-         </div>
-
-         <div class="liquida_formulario" id="liquida_formulario">
-                 <h2>Liquidar</h2>
-                 <label for="formaL">Forma de liquidacion</label>
+                <div class="liquida_formulario" id="liquida_formulario">
+                        <h2>Liquidar</h2>
+                        <label for="formaL">Forma de liquidacion</label>
                         <select name="formaL" id="formaL">
                                 <option value="Efectivo">Efectivo</option>
                                 <option value="Cheque">Cheque</option>
                                 <option value="Transferencia">Transferencia</option>
                         </select>
-         </div>
-            
 
-            
-            <input type="submit" value="Guardar" name="insertar">
+                        <select name="cuenta" id="cuenta" class="cuenta">
+                                <option value="4">Cuenta OMVIZA</option>
+                                <option value="5">Cuenta Paulina</option>
+                        </select>
+                </div>
+                
+                <input type="submit" value="Guardar" name="insertar">
 
             
         </form>
@@ -313,7 +291,8 @@ $clientes = "SELECT * FROM cliente";
                 <?php $resultado = mysqli_query($conn, $ventas);
 
                 while($row = mysqli_fetch_assoc($resultado)) {?>
-                <div onclick="muestraModal()" class="table_item"> <i  class="fas fa-chevron-circle-down"></i> </div>
+                        <div class="table_item"> <a href="detalles_venta.php?id=<?php echo $row["folio"];?>"
+                        target="_blank"><i  class="fas fa-chevron-circle-down"></i> </a></div>
                         <?php
                         $dinero = $row['total'];
                         $final = formatoDinero($dinero);
@@ -322,47 +301,14 @@ $clientes = "SELECT * FROM cliente";
                         <div class="table_item"> <?php echo $row["fecha"] ?> </div>
                         <div class="table_item"> <?php echo $row["razon_social"] ?> </div>
                         <div class="table_item"> <?php echo $row["folio"] ?> </div>        
-                        <div class="table_item"> <?php echo "$".$final ?> </div>        
+                        <div class="table_item"> <?php echo $final ?> </div>        
                         <div class="table_item"> <?php echo $row["num_factura"] ?> </div>
-                        <div class="table_item"> <?php echo $row["plazo"] ?> </div>
+                        <div class="table_item"> <?php echo "Nada por ahora"?> </div>
                         <div class="table_item"> <?php echo $row["id_pago"] ?> </div>
                         <div class="table_item"> <?php echo $row["id_credito"] ?> </div>
                         <div class="detalles_venta" id="modal">
                         
-                        <div class="detalles_contenido">
-                                <div onclick="cerrarModal()" class="cerrar">
-                                        <button class="equis"><i class="fas fa-times"></i></button> 
-                                </div> 
 
-                                <div>
-                                        <h2>Detalles ventas</h2>
-                                 </div>
-                                <div class="tabla_modal">
-                                        <div>Fecha</div>
-                                        <div>Cliente</div>
-                                        <div>Folio</div>
-                                        <div>Total</div>
-                                        <div>Factura</div>
-                                        <div>Plazo</div>
-                                        <div>pago</div>
-                                        <div>Credito</div>
-                                        <?php
-                                                $detalles = "SELECT * FROM descripcion_ventas  WHERE folio_ventas = $folio";
-                                                $query = mysqli_query($conn, $detalles);
-                                                if (mysqli_num_rows($query)==0) { echo "No hay resultados"; }
-                                                while($row = mysqli_fetch_assoc($query)){
-                                                        echo $row['folio_ventas'];
-                                                        echo $row['calibre'];
-                                                        echo $row['cajas'];
-                                                        echo $row['subtotal'] . "<br>";
-                                                }
-                                                
-                                        ?>
-                                
-                                </div>
-                
-
-                        </div>
                 </div>
 
                 <?php } ?>
@@ -371,8 +317,22 @@ $clientes = "SELECT * FROM cliente";
 </div>
 
 </div>
+</div>
 
 <?php 
+if(empty($_SESSION['exito_venta'])){
+
+} else{
+        //echo "EXITO!";
+        $message = "Venta exitosa";
+        //echo "<script type='text/javascript'>alert('$message');</script>";
+        echo "<script type='text/javascript'>Swal.fire(
+                'Exito en venta!',
+                'Se ha guardado la venta exitosamente!',
+                'success'
+              )</script>";
+        unset($_SESSION['exito_venta']);
+}
 mysqli_close($conn);
 include("includes/footer.php");
 ?>

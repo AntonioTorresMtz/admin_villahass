@@ -19,11 +19,11 @@
                 </select>
             <input type="number" placeholder="Folio credito" name="folioCredito">
             <label for="monto"> Monto </label>
-            <input type="number" placeholder="monto" name="monto" id="monto">
+            <input type="number" placeholder="monto" name="monto" id="monto" min="1">
             <label for="caja"> Caja </label>
             <select name="caja" id="caja">
                 <?php 
-                    $cajas = "SELECT * FROM caja";
+                    $cajas = "SELECT id_caja, nombre FROM caja limit 3";
                     $resultado = mysqli_query($conn, $cajas);
                     while($row = mysqli_fetch_assoc($resultado)) {?>
                         <?php $id = $row["id_caja"]?>
@@ -50,8 +50,8 @@
             </div>
             <div class="tabla creditos">
                     <?php 
-                    $creditos = "SELECT c.id_credito,  cl.razon_social, c.folio_venta, c.fecha_inicio, c.forma_pago, 
-                    c.fecha_limite, c.monto_debe, c.Estado FROM creditos AS c
+                    $creditos = "SELECT c.id_credito,  cl.razon_social, c.folio_venta, c.fecha_inicio,
+                    c.notas, c.monto_debe, c.Estado FROM creditos AS c
                     INNER JOIN ventas AS v
                     ON c.folio_venta = v.folio
                     INNER JOIN cliente AS cl
@@ -69,9 +69,9 @@
                             <div class="table_item"> <?php echo $row["folio_venta"] ?> </div>
                             <div class="table_item"> <?php echo $row["fecha_inicio"] ?> </div>
                             
-                            <div class="table_item"> <?php echo $row["forma_pago"] ?> </div>
-                            <div class="table_item"> <?php echo $row["fecha_limite"] ?> </div>
-                            <div class="table_item"> <?php echo "$"."$final" ?> </div>
+                            <div class="table_item"><?php echo $row["notas"] ?></div>
+                            <div class="table_item"> Null  </div>
+                            <div class="table_item"> <?php echo $final ?> </div>
                             <?php if ($row["Estado"] == "Pendiente"){?>
 
                             <div class="table_item estatusDebe"> <?php echo $row["Estado"] ?> </div>
@@ -163,3 +163,44 @@
         </div>
     </div>
 </div>
+
+<?php
+if(empty($_SESSION['error_folio'])){
+
+} else{
+    //echo "EXITO!";
+    //$message = "Actualizacion exitosa";
+    //echo "<script type='text/javascript'>alert('$message');</script>";
+    echo "<script type='text/javascript'>Swal.fire(
+        'No existe este folio!',
+        'No se pudo encontrar el folio ingresado!',
+        'error'
+    )</script>";
+    unset($_SESSION['error_folio']);
+}
+
+if(empty($_SESSION['error_pagado'])){
+
+} else{
+    //echo "EXITO!";
+    //$message = "Actualizacion exitosa";
+    //echo "<script type='text/javascript'>alert('$message');</script>";
+    echo "<script type='text/javascript'>Swal.fire(
+        'Credito finiquitado!',
+        'El folio ingresado ya se encuentra pagado!',
+        'info'
+    )</script>";
+    unset($_SESSION['error_pagado']);
+}
+
+if(isset($_SESSION['exito_pagoComs'])){
+    echo "<script type='text/javascript'>Swal.fire(
+        'Pago realizado exitosamente!',
+        'Se ha registrado un nuevo pago!',
+        'success'
+    )</script>";
+    unset($_SESSION['exito_pagoComs']);
+} 
+
+mysqli_close($conn);
+?>
